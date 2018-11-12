@@ -2,7 +2,15 @@ from tkinter import Button, Tk, Frame, StringVar, Label, Menu, Toplevel, SUNKEN,
 import WordGen2
 from random import randint
 from os.path import join
+import sys
+import os
 base_dir = '.'
+if getattr(sys, 'frozen', False):
+    base_dir = sys._MEIPASS
+
+if not os.path.exists("config.cnf"):
+    open("config.cnf", "w").write("8 0 0 0 0 0 0 0 0 0 0")
+
 
 
 def unbindall():
@@ -206,7 +214,7 @@ class GameData:
             root.after(1000, self.timer)
 
     def refresh(self):
-        self.wordnums = int(open(join(base_dir, 'config.cnf'), 'r').read().split()[0])
+        self.wordnums = int(open('config.cnf', 'r').read().split()[0])
 
 
 class But(Button):
@@ -286,7 +294,7 @@ def win(points, notfull=False):
 
 def settings():
     data.timergo = False
-    dat = open(join(base_dir, 'config.cnf'), 'r').read().split()
+    dat = open('config.cnf', 'r').read().split()
     words = dat[0]
     recordes = dat[1:]
     t = StringVar()
@@ -298,12 +306,12 @@ def settings():
         temp = ''
         for i in recordes:
             temp += ' ' + i
-        open(join(base_dir, 'config.cnf'), 'w').write(str(w.get()) + temp)
+        open('config.cnf', 'w').write(str(w.get()) + temp)
         wind.destroy()
         start()
 
     def reset():
-        open(join(base_dir, 'config.cnf'), 'w').write(str(words) + ' 0 0 0 0 0 0 0 0 0 0')
+        open('config.cnf', 'w').write(str(words) + ' 0 0 0 0 0 0 0 0 0 0')
         recordes.clear()
         recordes.extend(' 0 0 0 0 0 0 0 0 0 0'.split())
 
@@ -324,7 +332,7 @@ def settings():
 
 
 def records(mode='window', points=0):
-    dat = open(join(base_dir, 'config.cnf'), 'r').read().split()
+    dat = open('config.cnf', 'r').read().split()
     words = dat[0]
     recr = dat[1:]
     def close():
@@ -353,7 +361,7 @@ def records(mode='window', points=0):
         temp = ''
         for i in recr:
             temp += ' ' + str(i)
-        open(join(base_dir, 'config.cnf'), 'w').write(words + temp)
+        open('config.cnf', 'w').write(words + temp)
 
 
 def rules():

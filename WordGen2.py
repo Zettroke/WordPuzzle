@@ -6,7 +6,10 @@ listletters = []
 listcoord = []
 abc = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
 
+import sys
 base_dir = '.'
+if getattr(sys, 'frozen', False):
+    base_dir = sys._MEIPASS
 
 
 def serch(obj, array):
